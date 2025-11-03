@@ -30,7 +30,7 @@ public class RegistrationController {
         return "login";
     }
     
-    @PostMapping
+    @PostMapping("/register")
     public String registerUserAccount(
             @ModelAttribute("user") @Valid UserRegistrationDto registrationDto,
             BindingResult result) {
@@ -50,7 +50,7 @@ public class RegistrationController {
         }
         
         if (result.hasErrors()) {
-            return "auth/register";
+            return "register";
         }
         
         userService.registerUser(registrationDto);

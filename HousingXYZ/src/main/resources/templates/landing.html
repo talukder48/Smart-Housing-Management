@@ -1,36 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Construction PM - Features</title>
+    <title>Dashboard - Smart Loan Originator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">Construction PM</a>
-            <div class="d-flex">
-                <a href="/login" class="btn btn-outline-primary me-2">Login</a>
-                <a href="/register" class="btn btn-primary">Register</a>
+
+    <!-- ======= Navbar ======= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="#">💰 Smart Loan Originator</a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3">Welcome, <b th:text="${#authentication.name}">User</b></span>
+                <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
             </div>
         </div>
     </nav>
 
-    <div class="container my-5">
-        <div class="row feature-box">
+    <!-- ======= Main Content ======= -->
+    <div class="container py-5">
+        <!-- Greeting -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">Welcome to Your Loan Dashboard</h2>
+            <p class="text-muted">Manage your loan applications, track approvals, and apply for new loans easily.</p>
+            <a href="/loan/apply" class="btn btn-success btn-lg mt-3">
+                ➕ Apply for New Loan
+            </a>
+        </div>
+
+        <!-- Loan Summary Cards -->
+        <div class="row g-4 mt-4">
             <div class="col-md-4">
-                <h3>Project Management</h3>
-                <p>Track all your projects from land acquisition to completion</p>
+                <div class="card card-hover text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Active Loans</h5>
+                        <h3 class="fw-bold text-primary" th:text="${activeLoanCount}">2</h3>
+                        <p class="text-muted">Loans currently in repayment</p>
+                        <a href="/loan/list" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
-                <h3>Financial Tracking</h3>
-                <p>Monitor all expenses with document attachments</p>
+                <div class="card card-hover text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Pending Applications</h5>
+                        <h3 class="fw-bold text-warning" th:text="${pendingCount}">1</h3>
+                        <p class="text-muted">Applications under review</p>
+                        <a href="/loan/status" class="btn btn-outline-warning btn-sm">Check Status</a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
-                <h3>Team Collaboration</h3>
-                <p>Work with your team members across multiple projects</p>
+                <div class="card card-hover text-center border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Total Disbursed</h5>
+                        <h3 class="fw-bold text-success" th:text="${totalDisbursed}">৳120,000</h3>
+                        <p class="text-muted">Total loan amount released</p>
+                        <a href="/loan/history" class="btn btn-outline-success btn-sm">View History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Loan Activity -->
+        <div class="mt-5">
+            <h4 class="fw-bold text-primary mb-3">📄 Recent Loan Activity</h4>
+            <div class="table-responsive">
+               
             </div>
         </div>
     </div>
+
+    <!-- ======= Footer ======= -->
+    <footer class="bg-primary text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2025 Smart Loan Originator. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
