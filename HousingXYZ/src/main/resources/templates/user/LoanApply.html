@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>🧾 Personal Loan Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: "Noto Sans Bengali", "Segoe UI", sans-serif;
+        }
+        .form-card {
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+        }
+        h2 {
+            text-align: center;
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 25px;
+        }
+        .section-title {
+            background-color: #e8eaf6;
+            color: #1a237e;
+            padding: 10px 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            margin: 25px 0 15px;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .submit-btn {
+            background-color: #1976d2;
+            color: white;
+            font-size: 16px;
+            padding: 12px 0;
+            width: 240px;
+            border-radius: 6px;
+            border: none;
+        }
+        .submit-btn:hover {
+            background-color: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>💼 Personal Loan Application</h2>
+
+    <form th:action="@{/Loansave}" th:object="${loanForm}" method="post" class="form-card">
+
+        <!-- Personal Information -->
+        <div class="section-title">ব্যক্তিগত তথ্য (Personal Information)</div>
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">নাম (বাংলা)</label>
+                <input type="text" th:field="*{nameBn}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Name (English)</label>
+                <input type="text" th:field="*{nameEn}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">কর্মস্থল নাম</label>
+                <input type="text" th:field="*{officeBn}" class="form-control">
+            </div>
+        </div>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <label class="form-label">পিতার নাম</label>
+                <input type="text" th:field="*{fatherBn}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">মাতার নাম</label>
+                <input type="text" th:field="*{motherBn}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">জেলা</label>
+                <input type="text" th:field="*{districtBn}" class="form-control">
+            </div>
+        </div>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-4">
+                <label class="form-label">যোগদানের তারিখ</label>
+                <input type="date" th:field="*{joinDate}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">বর্তমান পদবি</label>
+                <input type="text" th:field="*{designation}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">জাতীয় পরিচয়পত্র নম্বর</label>
+                <input type="text" th:field="*{nid}" class="form-control">
+            </div>
+        </div>
+
+        <!-- Salary Information -->
+        <div class="section-title">বেতন সম্পর্কিত তথ্য (Salary Information)</div>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Salary Scale</label>
+                <input type="text" th:field="*{salaryScale}" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">মূল বেতন</label>
+                <input type="number" th:field="*{basicSalary}" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">কর্তন</label>
+                <input type="number" th:field="*{deduction}" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">নিট বেতন</label>
+                <input type="number" th:field="*{netSalary}" class="form-control">
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="section-title">যোগাযোগের তথ্য (Contact Information)</div>
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Office Address</label>
+                <input type="text" th:field="*{officeAddress}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Residential Address</label>
+                <input type="text" th:field="*{homeAddress}" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Mobile</label>
+                <input type="text" th:field="*{mobile}" class="form-control">
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="submit-btn">সাবমিট করুন / Submit</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
