@@ -22,17 +22,17 @@ import app.hm.service.UserService;
 public class UserController {
 	
 	@GetMapping("/")
-    public String index() {
-        return "index";
+    public String index(Principal principal, Model model) {
+		if (principal!=null) {
+			 return "redirect:/dashboard";
+		}
+		  return "index";
+       
     }
     
 	@Autowired UserService userService;
     @Autowired LoanDocumentRepository loanDocumentRepository;
-    @GetMapping("/home")
-    public String userHome(Principal principal, Model model) {
-         
-        return "user-layout";
-    }
+    
     
     @Autowired LoanApplicationRepository loanApplicationRepository;
     
