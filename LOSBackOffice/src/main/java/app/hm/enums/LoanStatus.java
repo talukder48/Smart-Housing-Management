@@ -6,5 +6,6 @@ public enum LoanStatus {
     REJECTED,   // Loan rejected
     DISBURSED,  // Loan amount disbursed
     CLOSED ,     // Loan fully repaid and closed,
-    SUBMITTED
+    SUBMITTED,
+    VERIFIED
 }

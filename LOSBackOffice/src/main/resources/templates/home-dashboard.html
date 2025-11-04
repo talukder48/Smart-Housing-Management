@@ -1,10 +1,14 @@
 <div th:fragment="content">
     <!-- ======= Dashboard Header ======= -->
-    <section class="dashboard-header py-4 bg-light">
+    <section class="dashboard-header py-4 bg-light border-bottom">
         <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h2 class="mb-1">Welcome, <span th:text="${user.username}">Officer</span> 👋</h2>
-                <p class="mb-0 text-muted">Monitor loan processing and manage application workflow</p>
+                <h2 class="mb-1">
+                    Welcome, <span th:text="${user != null ? user.username : #authentication.principal.username}">Officer</span> 👋
+                </h2>
+                <p class="mb-0 text-muted">
+                    Monitor loan processing and manage application workflow
+                </p>
             </div>
             <a th:href="@{/office/applications/pending}" class="btn btn-primary btn-lg mt-3 mt-md-0">
                 <i class="bi bi-hourglass-split"></i> View Pending Files
@@ -15,35 +19,16 @@
     <!-- ======= Quick Stats ======= -->
     <div class="container mt-5">
         <div class="row g-4">
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-3" th:each="stat : ${{
+                'Total Applications': totalApplications,
+                'Verified': verifiedApplications,
+                'Pending Review': pendingReview,
+                'Approved': approvedCount
+            }.entrySet()}">
                 <div class="card shadow-sm border-0">
                     <div class="card-body text-center">
-                        <h6 class="text-muted">Total Applications</h6>
-                        <h3 class="text-primary" th:text="${totalApplications}">0</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <h6 class="text-muted">Verified</h6>
-                        <h3 class="text-success" th:text="${verifiedApplications}">0</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <h6 class="text-muted">Pending Review</h6>
-                        <h3 class="text-warning" th:text="${pendingReview}">0</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body text-center">
-                        <h6 class="text-muted">Approved</h6>
-                        <h3 class="text-success" th:text="${approvedCount}">0</h3>
+                        <h6 class="text-muted" th:text="${stat.key}">Stat</h6>
+                        <h3 th:text="${stat.value}" class="text-primary">0</h3>
                     </div>
                 </div>
             </div>
@@ -66,14 +51,14 @@
                             <th>Loan Type</th>
                             <th>Amount (BDT)</th>
                             <th>Status</th>
-                            <th>Last Updated</th>
+                            <th>Submitted Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="app : ${applications}">
                             <td th:text="${app.id}">LN-2025</td>
-                            <td th:text="${app.applicantName}">Rahim Uddin</td>
+                            <td th:text="${app.fullName}">Rahim Uddin</td>
                             <td th:text="${app.loanType}">Home Loan</td>
                             <td th:text="${#numbers.formatDecimal(app.amount, 0, 'COMMA', 2, 'POINT')}">250,000.00</td>
                             <td>
@@ -82,19 +67,14 @@
                                     <span th:case="'VERIFIED'" class="badge bg-info text-dark">Verified</span>
                                     <span th:case="'APPROVED'" class="badge bg-success">Approved</span>
                                     <span th:case="'REJECTED'" class="badge bg-danger">Rejected</span>
-                                    <span th:case="*"
-                                          class="badge bg-secondary">Unknown</span>
+                                    <span th:case="*" class="badge bg-secondary">Unknown</span>
                                 </span>
                             </td>
-                            <td th:text="${app.lastUpdated}">03 Nov 2025</td>
-                            <td class="d-flex flex-column flex-md-row gap-1">
+                            <td th:text="${app.submittedDate}">03 Nov 2025</td>
+                            <td>
                                 <a th:href="@{/office/applications/view/{id}(id=${app.id})}"
                                    class="btn btn-sm btn-outline-primary">
                                    <i class="bi bi-eye"></i> View
-                                </a>
-                                <a th:href="@{/office/applications/verify/{id}(id=${app.id})}"
-                                   class="btn btn-sm btn-outline-success">
-                                   <i class="bi bi-check-circle"></i> Verify
                                 </a>
                             </td>
                         </tr>

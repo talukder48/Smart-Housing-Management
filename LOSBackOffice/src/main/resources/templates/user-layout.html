@@ -115,22 +115,28 @@
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
+      <!-- Mobile toggle -->
       <button class="btn btn-outline-light me-2 d-lg-none" id="mobileSidebarToggle">
         <i class="bi bi-list"></i>
       </button>
 
-      <a class="navbar-brand" href="/" th:text="${@environment.getProperty('app.company.name')}">🏛 Smart LOS Office</a>
+      <!-- Brand -->
+      <a class="navbar-brand" href="/" th:text="${@environment.getProperty('app.company.name')}">
+        🏛 Smart LOS Office
+      </a>
 
+      <!-- Navbar collapse -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse justify-content-end" id="topNav">
         <ul class="navbar-nav mb-2 mb-lg-0">
+          <!-- User dropdown -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="profileMenu" data-bs-toggle="dropdown">
-              <i class="bi bi-person-circle"></i> <span th:text="${#authentication.principal.username}">Officer</span>
-
+              <i class="bi bi-person-circle"></i>
+              <span th:text="${#authentication.principal.username}">Officer</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Profile Settings</a></li>
@@ -152,9 +158,11 @@
   <div class="main-wrapper">
     <!-- SIDEBAR -->
     <nav id="sidebar" class="p-3">
-      <h5 class="text-white mb-3"><i class="bi bi-building-gear"></i> Office Menu</h5>
+      <h5 class="text-white mb-3">
+        <i class="bi bi-building-gear"></i> Office Menu
+      </h5>
       <ul class="nav flex-column">
-        <li><a class="nav-link active" th:href="@{/office/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li><a class="nav-link active" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
         <li><a class="nav-link" th:href="@{/office/applications/pending}"><i class="bi bi-file-earmark-text"></i> Pending Files</a></li>
         <li><a class="nav-link" th:href="@{/office/verifications}"><i class="bi bi-person-check"></i> Verifications</a></li>
         <li><a class="nav-link" th:href="@{/office/approvals}"><i class="bi bi-check2-circle"></i> Approvals</a></li>
@@ -165,7 +173,6 @@
 
     <!-- ===== CONTENT ===== -->
     <main class="content-area flex-grow-1">
-      <!-- Dynamically loaded page content -->
       <div th:replace="~{${content}}"></div>
     </main>
   </div>
@@ -178,7 +185,9 @@
           <h5 class="modal-title">Confirm Logout</h5>
           <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body text-center">Are you sure you want to logout?</div>
+        <div class="modal-body text-center">
+          Are you sure you want to logout?
+        </div>
         <div class="modal-footer justify-content-center">
           <button class="btn btn-secondary" data-bs-dismiss="modal">❌ Cancel</button>
           <a th:href="@{/logout}" class="btn btn-danger">✅ Logout</a>

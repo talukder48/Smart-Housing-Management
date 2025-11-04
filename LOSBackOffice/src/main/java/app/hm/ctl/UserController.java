@@ -1,6 +1,7 @@
 package app.hm.ctl;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,41 +39,41 @@ public class UserController {
     
     @GetMapping("/dashboard")
     public String dashboard(Principal principal, Model model) {
+        // 1️⃣ Logged-in officer
         String username = principal.getName();
         User user = userService.findByUsername(username);
-
-        // Fetch loans
-        List<LoanApplication> applications = loanApplicationRepository.findByUser(user);
-
-        // Fetch documents for each loan
-        Map<Long, List<LoanDocument>> documentsMap = new HashMap<>();
-        for (LoanApplication loan : applications) {
-            List<LoanDocument> docs = loanDocumentRepository.findByLoanApplication(loan);
-            documentsMap.put(loan.getId(), docs);
-        }
-
-        // Stats
-        long totalApplications = applications.size();
-        long approvedApplications = applications.stream()
-                .filter(app -> app.getStatus() == LoanStatus.APPROVED).count();
-        long pendingApplications = applications.stream()
-                .filter(app -> app.getStatus() == LoanStatus.PENDING).count();
-        long rejectedApplications = applications.stream()
-                .filter(app -> app.getStatus() == LoanStatus.REJECTED).count();
-
-        // Add attributes
         model.addAttribute("user", user);
+
+        // 2️⃣ Fetch all applications (for demonstration, later filter by branch or officer if needed)
+        List<LoanApplication> applications = loanApplicationRepository.findAll();
+
+        // 3️⃣ Dashboard counts
+        long totalApplications = applications.size();
+        long verifiedApplications = applications.stream()
+                .filter(a -> a.getStatus() == LoanStatus.VERIFIED).count();
+        long pendingReview = applications.stream()
+                .filter(a -> a.getStatus() == LoanStatus.PENDING).count();
+        long approvedCount = applications.stream()
+                .filter(a -> a.getStatus() == LoanStatus.APPROVED).count();
+
+        // 4️⃣ Recent Activities (stub example)
+        List<Map<String, String>> recentActivities = new ArrayList<>();
+        recentActivities.add(Map.of("description", "Verified Loan #1003", "timeAgo", "2 hours ago"));
+        recentActivities.add(Map.of("description", "Approved Loan #1001", "timeAgo", "5 hours ago"));
+
+        // 5️⃣ Add data to model
         model.addAttribute("applications", applications);
-        model.addAttribute("documentsMap", documentsMap);
         model.addAttribute("totalApplications", totalApplications);
-        model.addAttribute("approvedApplications", approvedApplications);
-        model.addAttribute("pendingApplications", pendingApplications);
-        model.addAttribute("rejectedApplications", rejectedApplications);
+        model.addAttribute("verifiedApplications", verifiedApplications);
+        model.addAttribute("pendingReview", pendingReview);
+        model.addAttribute("approvedCount", approvedCount);
+        model.addAttribute("recentActivities", recentActivities);
+
+        // 6️⃣ Load dashboard content fragment inside office layout
         model.addAttribute("content", "home-dashboard");
 
         return "user-layout";
     }
-
 
    
 
