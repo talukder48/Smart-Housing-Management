@@ -28,6 +28,11 @@ public class RegisterController {
         return "register";
     }
 
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+    
     // Handle registration
     @PostMapping("/register")
     public String processRegister(@ModelAttribute("user") User user,

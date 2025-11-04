@@ -3,7 +3,7 @@
     <section class="dashboard-header py-4 bg-light">
         <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
-                <h2 class="mb-1">Welcome, <span th:text="${user.fullName}">Officer</span> 👋</h2>
+                <h2 class="mb-1">Welcome, <span th:text="${user.username}">Officer</span> 👋</h2>
                 <p class="mb-0 text-muted">Monitor loan processing and manage application workflow</p>
             </div>
             <a th:href="@{/office/applications/pending}" class="btn btn-primary btn-lg mt-3 mt-md-0">

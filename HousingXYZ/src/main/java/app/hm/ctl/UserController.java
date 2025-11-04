@@ -21,6 +21,9 @@ import app.hm.service.UserService;
 @Controller
 public class UserController {
 	
+	
+	
+	
 	@GetMapping("/")
     public String index(Principal principal, Model model) {
 		if (principal!=null) {
